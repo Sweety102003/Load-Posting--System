@@ -1,43 +1,27 @@
 # Project setup
 - Clone the repository
 ```shell
-git clone https://github.com/Sweety102003/JEE-Test-Platform.git 
+ git clone https://github.com/Sweety102003/Load-Posting--System.git
 ```
-- Go to JEE-Test-Platform directory
+- Go to Load posting syystem directory
 ```shell
-cd ./JEE-Test-Platform/
+cd ./Load-Posting--System/
 ```
 
-- Go to client directory
-```shell
-cd client
-```
-- Inside the client folder, create a .env file as follows
-```.env
-VITE_API_URL=http://localhost:5000
-```
 
-- Run the following in client directory
-```shell
-npm install
-npm run dev
-```
-
-- Open a new terminal and go to server directory
-  ```shell
-  cd server
-  ```
 - Run the following command
 ```shell
 npm install
 ```
-- Create a .env file with the following variables inside server directory
-```.env
+- Create a .env.local file with the following variables inside load posting system directory
+```.env.local
 PORT=5000
 Mongo_url= "Your MONGO_DB url here"
-JWT_SECRET= "JWT Secret here"
+Jwt_secret= "JWT Secret here"
+Email_user="your email here"
+Email_pass="your email passkey here
 ```
 - Run the following command
 ```shell
-node app.js
+npm run dev
   ```

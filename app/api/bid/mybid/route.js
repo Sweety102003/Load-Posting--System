@@ -1,5 +1,5 @@
 import connectdb from "@/lib/mongodb";
-import User from "@/models/User";
+import Bid from "@/models/Bid";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
@@ -16,26 +16,9 @@ export async function GET(req) {
     const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, Jwt_secret);
 
-    const user = await User.findById(decoded._id);
-    if (!user || user.role !== "trucker") {
-      return NextResponse.json({ message: "Invalid user" }, { status: 403 });
-    }
+    const bids = await Bid.find({ truckersid: decoded._id }).populate("loadid");
 
-  if(
-      user.accidents == 0 &&
-      user.theftcomplaints == 0 &&
-      user.truckage <= 5 
-      )
-      {
-        user.iseligible=true;
-      }
-      else{
-        user.iseligible=false;
-      }
-console.log(user.iseligible);
-    await user.save();
-
-    return NextResponse.json({ message: "Eligibility checked", user }, { status: 200 });
+    return NextResponse.json({ message: "Bids fetched", bids }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "Server Error", error: error.message }, { status: 500 });
   }

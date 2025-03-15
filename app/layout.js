@@ -61,12 +61,16 @@ export default function RootLayout({ children }) {
           {role === "shipper" && (
             <>
               <li className="cursor-pointer hover:text-gray-300 mt-2" onClick={() => router.push("/postload")}>Post Load</li>
+              <li className="cursor-pointer hover:text-gray-300   mt-2" onClick={() => router.push("/shippersdashboard")}>Shippers Dashboard</li>
               <li className="cursor-pointer hover:text-gray-300   mt-2" onClick={() => router.push("/bids/view")}>View Bids</li>
             </>
           )}
-          {role === "trucker" && (
-            <li className="cursor-pointer hover:text-gray-300 mt-2" onClick={() => router.push("/loaddisplay")}>View Loads & Place Bids</li>
-          )}
+          {role === "trucker" && (<>
+          <li className="cursor-pointer hover:text-gray-300 mt-2" onClick={() => router.push("/trucker/profile")}>Profile</li>
+          <li className="cursor-pointer hover:text-gray-300 mt-2" onClick={() => router.push("/mybid")}>Bid Status</li>
+          <li className="cursor-pointer hover:text-gray-300 mt-2" onClick={() => router.push("/truckersdashboard")}>Trucker's dashboard</li>
+          <li className="cursor-pointer hover:text-gray-300 mt-2" onClick={() => router.push("/loaddisplay")}>View Loads & Place Bids</li>
+          </>)}
           {token ? (
             <li className="cursor-pointer bg-red-500 px-4 py-2 rounded-md hover:bg-red-700 transition" onClick={handleLogout}>
               Logout
@@ -98,10 +102,19 @@ export default function RootLayout({ children }) {
               }>View Bids</li>
             </>
           )}
-          {role === "trucker" && (
+          {role === "trucker" && (<>
             <li className="cursor-pointer hover:text-gray-300" onClick={() => {router.push("/loaddisplay");
               setMenuOpen(!menuOpen);}
             }>View Loads & Place Bids</li>
+             <li className="cursor-pointer hover:text-gray-300" onClick={() => {router.push("truckersdashboard");
+              setMenuOpen(!menuOpen);}
+            }>Trucker Dashboard</li>
+             <li className="cursor-pointer hover:text-gray-300" onClick={() => {router.push("/mybid");
+              setMenuOpen(!menuOpen);}
+            }>Bid Status</li>
+            <li className="cursor-pointer hover:text-gray-300" onClick={() => {router.push("/trucker/profile");
+              setMenuOpen(!menuOpen);}
+            }>Profile</li></>
           )}
           {token ? (
             <li className="cursor-pointer bg-red-500 px-4  mt-0 rounded-md hover:bg-red-700 transition" onClick={handleLogout}>

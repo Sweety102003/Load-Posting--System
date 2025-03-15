@@ -21,6 +21,17 @@ export async function POST(req) {
     if (user.role !== "trucker") {
       return NextResponse.json({ message: "Only truckers can place bids" });
     }
+    if(
+      user.accidents == 0 &&
+      user.theftcomplaints == 0 &&
+      user.truckage <= 5 
+      )
+      {
+        user.iseligible=true;
+      }
+      else{
+        user.iseligible=false;
+      }
     if (!user.iseligible) {
         return NextResponse.json({ message: "You do not meet eligibility criteria" });
       }

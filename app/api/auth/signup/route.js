@@ -15,15 +15,11 @@ export async function POST(req) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 console.log(role);
+let newUser;
     if (role === "trucker") {
-      if (accidents > 0 || theftcomplaints > 0 || truckage > 5 || licenseheldYears < 5) {
-        return NextResponse.json(
-          { message: "You do not meet the trucker eligibility criteria." },
-          
-        );
-      }
+      
 
-     const newUser = new User({
+newUser = new User({
         name,
         email,
         password: hashedPassword,
@@ -36,7 +32,7 @@ console.log(role);
     
 
     } else {
-     const newUser = new User({
+      newUser = new User({
         name,
         email,
         password: hashedPassword,

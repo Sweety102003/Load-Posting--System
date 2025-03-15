@@ -46,9 +46,7 @@ export default function TruckerProfile() {
             <p><strong>Truck Age:</strong> {trucker.truckage} years</p>
             <p><strong>License Held For:</strong> {trucker.licenseheldYears} years</p>
 
-            <p className={`mt-4 p-2 text-center rounded-md ${trucker.iseligible ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"}`}>
-              {trucker.iseligible ? "Eligible to Place Bids" : " Not Eligible to Place Bids"}
-            </p>
+          
           </div>
         ) : (
           <p className="text-center text-gray-500">Profile not found.</p>

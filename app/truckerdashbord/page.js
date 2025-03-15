@@ -10,11 +10,11 @@ export default function TruckerDashboard() {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
-      fetchLoads(storedToken);
+      fetchAssignedLoads(storedToken);
     }
   }, []);
 
-  const fetchLoads = async (authToken) => {
+  const fetchAssignedLoads = async (authToken) => {
     try {
       const response = await axios.get("/api/load/get", {
         headers: { Authorization: `Bearer ${authToken}` },
@@ -37,17 +37,33 @@ export default function TruckerDashboard() {
       try {
         await axios.post(
           "/api/tracker/update",
-          { loadid:loadId, latitude, longitude },
+          { loadid: loadId, latitude, longitude },
           {
             headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
           }
         );
         alert("Location updated successfully!");
-        fetchLoads(token);
+        fetchAssignedLoads(token);
       } catch (error) {
         console.error("Error updating location:", error);
       }
     });
+  };
+
+  const markAsDelivered = async (loadId) => {
+    try {
+      await axios.post(
+        "/api/load/updatestatus",
+        { loadid: loadId, status: "delivered" },
+        {
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        }
+      );
+      alert("Load marked as delivered!");
+      fetchAssignedLoads(token);
+    } catch (error) {
+      console.error("Error updating load status:", error);
+    }
   };
 
   return (
@@ -64,6 +80,7 @@ export default function TruckerDashboard() {
               <p><strong>Drop-off:</strong> {load.dropofflocation}</p>
               <p><strong>Weight:</strong> {load.weight} kg</p>
               <p><strong>Status:</strong> {load.status}</p>
+              <p><strong>Last Location:</strong> {load.location ? `Lat: ${load.location.latitude}, Lng: ${load.location.longitude}` : "Not updated"}</p>
 
               <button
                 onClick={() => updateLocation(load._id)}
@@ -71,6 +88,15 @@ export default function TruckerDashboard() {
               >
                 Update Location
               </button>
+
+              {load.status !== "delivered" && (
+                <button
+                  onClick={() => markAsDelivered(load._id)}
+                  className="mt-2 ml-2 bg-green-500 text-white px-4 py-2 rounded"
+                >
+                  Mark as Delivered
+                </button>
+              )}
             </li>
           ))}
         </ul>

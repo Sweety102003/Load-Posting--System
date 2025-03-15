@@ -26,8 +26,6 @@ maxTime:{
 
 status: {
     type: String,
-    enum: ["open", "in-progress", "completed"],
-    default: "open",
   },
   assignedTrucker: {
     type: mongoose.Schema.Types.ObjectId,

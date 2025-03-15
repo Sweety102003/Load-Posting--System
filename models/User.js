@@ -17,11 +17,11 @@ role:{
     enum: ["shipper", "trucker"],
      req: true 
 },
-accidents: { type: String, default: 0 },
-theftcomplaints: { type: String, default: 0 },
+accidents: { type: String},
+theftcomplaints: { type: String },
 truckage: { type: String, required: false }, 
 licenseheldYears: { type: String, required: false }, 
-iseligible: { type: Boolean, default: false },
+iseligible: { type: Boolean},
 });
 const User=mongoose.models.User || mongoose.model("User" , userSchema);
 export default User;
